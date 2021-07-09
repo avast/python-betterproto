@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - avast/release
   pull_request:
     branches:
       - '**'
