@@ -1,3 +1,3 @@
 from pkg_resources import get_distribution
 
-__version__ = get_distribution("betterproto").version
+__version__ = get_distribution("avast.betterproto").version

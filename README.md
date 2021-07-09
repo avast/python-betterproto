@@ -1,3 +1,49 @@
+# Avast fork
+This is an Avast fork that we use to get stuff released quicker so we can use it
+in our projects.
+
+Our package is released from the branch `avast/release`. This branch contains
+changes that are necessary for our release. Most often, it will be based on the
+`master` branch of the `upstream` remote (the original repo). If we need to
+release some custom changes, those will be done in another branch and
+`avast/release` will be rebased onto it. This will require
+a lot of force pushing - if you want to work with `avast/release`, you are on
+your own.
+
+## How to work with this repo
+This fork was setup using [this how-to
+guide](https://rhonabwy.com/2016/04/04/how-to-maintain-a-git-remote-fork/).
+
+Before you start work:
+
+```
+# This will synchronize upstream/master (original repo) and origin/master (our fork)
+git fetch --all --prune
+git checkout master
+git merge upstream/master --ff-only
+git push origin master
+```
+
+If you want to propose a change to the upstream:
+
+```
+git checkout -b fix/small-bug
+# Commit some work
+git push -u origin fix/small-bug
+# Create a Pull Request
+```
+
+If you want to release our package with the change:
+
+```
+git checkout avast/release
+git rebase fix/small-bug
+# Raise version in pyproject.toml
+git push -f  # This will run testing Github actions
+git tag -a v0.1.0  # Add any comments into the annotation
+git push --tags  # This will trigger the release to PyPI
+```
+
 # Better Protobuf / gRPC Support for Python
 
 ![](https://github.com/danielgtaylor/python-betterproto/workflows/CI/badge.svg)
