@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "avast.betterproto"
-version = "0.3.0"
+version = "0.3.1"
 description = "A better Protobuf / gRPC generator & library"
 authors = ["Daniel G. Taylor <danielgtaylor@gmail.com>"]
 readme = "README.md"
