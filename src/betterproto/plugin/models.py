@@ -486,12 +486,18 @@ class FieldCompiler(MessageCompiler):
             return 'b""'
         elif self.field_type == "enum":
             enum_proto_obj_name = self.proto_obj.type_name.split(".").pop()
-            enum = next(
-                e
-                for e in self.output_file.enums
-                if e.proto_obj.name == enum_proto_obj_name
-            )
-            return enum.default_value_string
+            try:
+                enum = next(
+                    e
+                    for e in self.output_file.enums
+                    if e.proto_obj.name == enum_proto_obj_name
+                )
+                return enum.default_value_string
+            except StopIteration:
+                # This is a workaround for cases when the enum is not 
+                # defined in the same modules.
+                # This reverts to behaviour before https://github.com/danielgtaylor/python-betterproto/pull/299
+                return "None"
         else:
             # Message type
             return "None"
